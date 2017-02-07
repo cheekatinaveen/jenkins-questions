@@ -1,0 +1,17 @@
+1)How to install jenkins in redhat?
+
+sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo
+sudo rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
+sudo yum install jenkins
+
+
+2)Mention what are the commands you can use to start Jenkins manually?
+
+To start Jenkins manually, you can use either of the following
+
+– (Jenkins_url)/restart: Forces a restart without waiting for builds to complete
+– (Jenkin_url)/safeRestart: Allows all running builds to complete
+
+
+
+3)Mention some of the u
