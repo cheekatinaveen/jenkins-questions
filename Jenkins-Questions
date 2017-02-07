@@ -12,6 +12,15 @@ To start Jenkins manually, you can use either of the following
 – (Jenkins_url)/restart: Forces a restart without waiting for builds to complete
 – (Jenkin_url)/safeRestart: Allows all running builds to complete
 
+3)Mention some of the useful plugins in Jenkins?
+Maven 2 
+Git
+Amazon EC2
+HTML publisher
+Join
+Green Balls
+
+
 
 
 
