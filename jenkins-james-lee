@@ -1,0 +1,184 @@
+1)How to change the admin password?
+
+->Click on Admin at the top right hand side
+->Click on configure
+->In the password section , type the new password,confirm password
+->Save
+
+
+2)Explain Jenkins Architecture
+
+Jenkins uses Master/Slave Architecture.It is distributed architecture.
+
+Role of Master:-
+Schedule build jobs
+Dispatch builds to the slaves for the actual job execution
+Monitor the slaves and build results
+Can also execute build jobs directly.
+
+Role of slave:-
+Execute build jobs dispatched by master
+
+
+3)What is the job/project ?
+
+These two terms are used interchanageably.They all refer to runnable tasks that are controlled/monitored by Jenkins.
+
+4)What are slave/node?
+
+Slaves are computers that are setup to build projects for a master.
+Jenkins runs a separate program called slave agent on slaves
+When slave is registered to a master ,master starts distributing loads to slaves
+Nodes is used to refer to all machines that are part of Jenkins grid,slaves and master.
+
+5)What is executor?
+Executor is a separate stream of builds to be run on a node in parallel.
+A node can have one or more executors.
+
+
+6)What is build?
+Build is a result of one of the projects
+
+7)What is plugins?
+A plugin , like plugins on any other system,is a piece of software that extends the core functionality of the core Jenkins server.
+
+
+8)Explain a brief overview of Manage Jenkins section?
+
+It contains
+->Configure system.Configure global settings and path like java ,maven path
+->Configure Global Security.Secure Jenkins,define who is allowed to access/use the system.
+->Manage Plugins.Helps to add,disable,enable plugins that can extend the functionality of Jenkins.
+->System Information.Displays various environment information to assist trouble shooting.
+->System Logs.It captures output from java.util.logging  output related to Jenkins.
+
+9)How to create new job?
+->Create new job
+->Enter a item name
+->Select Freestyle project
+->Provide the project description
+->You can check the Discard old builds  where you can provide the date and maxmium number of builds of you want to keep.
+->Next section is SCM ,where you can define what repo you want to use.
+->Buid can be either windows batch script,execute shell,invoke top level maven targets.
+->Post build actions is mostly used to send out emails/notifications.
+
+
+10)How to run a jenkins job?
+Click on build scheduled , and if its blue ball , its a success.
+
+
+11)How to setup a Maven based build job?
+->Check out source code from GitHub
+->Complie the code
+->Run the test
+->Package the application
+
+12)How to install Github Plugin?
+
+->Go to Manage Jenkins
+->Manage Plugins
+->Filter it by searching for github plugin
+->click on install withhout restart
+
+13)What does Maven do ?
+
+Maven describes how the software is built
+Maven describes the project dependencies.
+
+14)How to configure JDk,Maven and Git in Jenkins?
+->Go to Manage Jenkins section
+->Global Tools Configuration
+->Provide the git,maven and JDK path and save it
+
+15)How does pom.xml describe?
+->Describe the software project being built ,including
+dependences on other external modules
+directory structures
+required plugins
+The predefined tasks for performing certain tasks such as compliation and packaging.
+
+16)How to create the Maven project ?
+->New Item
+->Provide a name and select freestyle project
+->Provide the source code repo,i.e GIT
+->provide the mvn goals, clean package
+
+
+17)How to do maven project in Jenkins?
+Check for the console output, first git logs, then maven goals, then creating .jar file
+
+
+18)How to automatically build in Jenkins?
+Using Polling SCM which makes sure that whenever a code is committed it will  pull from github.
+
+19)How to make sure that every time the user/password is not asked?
+->Setup SSH keys for GitHub account
+->SSH Keys are ways to identify trusted computers without involving password
+->Generate SSH key pair and save the private SSH key in your local box and add the public key to your GithHub account
+->Then you can directly push changes  to github repository without typing password
+
+Create ssh-keygen
+then add the private key to local and add public to github repo.
+
+
+
+19)What are the different build triggers?
+->Poll SCM
+->Build Periodically
+->Build after other projects are built
+->Build when a change is pushed to github
+
+20)How to generate code quality and code coverage metrics report?
+Using Checkstyle
+
+Checkstyle is a code static analysis tool to help programmers to write Java code that adheres to a coding standard 
+
+Go to the project, click on configure ,add checkstyle:checkstyle in Maven goals section , also select , publish checkstyle analysis results.
+
+
+21)How to archive artifacts?
+Go to project page, configure section, ego to post build artifacts and add **/*.war and save it, and then rerun the jenkins job and could see build artifacts getting saved.
+
+22)How to install and configure apache tomcat ?
+->Go to apache tomact page , go to tomcat8 downloads, download it , unzip the file, change the port to 8090 , which you will find in /conf/server/xml file.
+->Also make sure you provide permissions to startup scripts , use chmod for this
+->also provide a definitive roles to configure jenkins with tomcat,modify users and roles.
+->Stop tomcat using shutdown script and start it back using startup scripts which will be in the bin folder.
+
+23)How to trigger current project upon the success of other project?
+Suppose you need to make sure that if your build is a success in DEV environment , then you want it to automatically deploy to QA, then 
+->Install copy artifact and deploy to container plugins
+->Create a new project,sue freestyle
+->Go to build step , use  copy artifacts from other project.Provide the package name,artifacts to copy
+->Go to post build actions,seelct deploy war/ear to a container.In The war/ear section provide **/*.war
+->Click on add containers,select tomcat 7.x,provide user/pass,and tomcat url
+->Now to go to the package project,go to post build action ,build other projects,trigger only if build is stable
+
+
+
+24)Explain Jenkins build pipeline?
+->Install the build pipeline plugins
+->click on view and create a new view
+->Click on Build pipeline to see all the changes, if there is any upstream and downstream changes.
+->Click on run and it will trigger
+
+25)How to do parallel Jenkins build ?
+->Remove checkstyle:checkstyle goals
+->Create new item, give a new job a name" Static Analaysis" . select Freestyle
+->in SCM , use git and put the url
+->Move down to build section, invoke top-level maven project, in goals, we use checkstyle
+->Now to original package job and go to post build actions, and add static analysis list and save.
+
+
+26)How to deploy to production?
+Create a copy of current tomcat file, and then change the port to 9090
+->then create a new build other projects(manual section) and trigger it
+
+
+27)What are the different ways to start the agent?
+->The master can start the slave agents via SSH
+->Start the slave agent manually using Java Web Start
+->Install the slave agent as a windows service
+->Start the slave agent directly from command line on the slave machine
+
+
